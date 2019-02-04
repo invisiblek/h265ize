@@ -129,10 +129,16 @@ function runCli() {
                 // File logger needs time to flush to disk
                 logger.info('Flushing log to disk...');
                 setTimeout(function() {
+                    if (fs.existsSync(args.destination)) {
+                        fs.rmdirSync(args.destination);
+                    }
                     logger.info('Process ended.');
                     process.exit(0);
                 }, 2000);
             } else {
+                if (fs.existsSync(args.destination)) {
+                    fs.rmdirSync(args.destination);
+                }
                 logger.info('Process ended.');
                 process.exit(0);
             }
